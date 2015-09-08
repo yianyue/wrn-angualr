@@ -1,7 +1,9 @@
 'use strict';
 
+var APIURL = "http://wrn-api.herokuapp.com";
+
 app.factory('EntryService', ['$resource', function($resource){
-  return $resource("http://wrn-api.herokuapp.com/api/entries/:id", {}, {
+  return $resource(APIURL + "/api/entries/:id", {}, {
     get: {method: 'GET', cache: false, isArray: true},
     getEntry: {method: 'GET', cache: false, isArray: false},
     update: {method: 'PUT', cache: false, isArray: true},
@@ -10,17 +12,17 @@ app.factory('EntryService', ['$resource', function($resource){
 
 app.factory('UserService', ['$resource', function($resource){
   return {
-    users: $resource('http://wrn-api.herokuapp.com/api/users', {}, {
+    users: $resource(APIURL + '/api/users', {}, {
     save: {method: 'POST', cache: false, isArray: false},
   }),
-    user: $resource('http://wrn-api.herokuapp.com/api/user', {}, {
+    user: $resource(APIURL + '/api/user', {}, {
     update: {method: 'PUT', cache: false, isArray: false},
   }) 
   }
 }]);
 
 app.factory('SessionService', ['$resource', function($resource){
-return $resource('http://wrn-api.herokuapp.com/api/session', {}, {
+return $resource(APIURL + '/api/session', {}, {
     login: {method: 'POST', cache: false, isArray: false},
     logout: {method: 'DELETE', cache: false, isArray: false}
   });
