@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url(http://fonts.googleapis.com/css?family=Monofett|Josefin+Sans);
+@import url(https://fonts.googleapis.com/css?family=Monofett|Josefin+Sans);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -6890,7 +6890,7 @@ body {
   box-shadow: none;
 }
 /* modal */
-@keyframes star-animation {
+/*@keyframes star-animation {
   from {
     opacity: 1;
   }
@@ -6899,9 +6899,9 @@ body {
   }
 }
 .modal-body span {
-  /*color: @brand-success;*/
-  /*animation: star-animation 2s infinite  alternate backwards;*/
-}
+  color: @brand-success;
+  animation: star-animation 2s infinite  alternate backwards;
+}*/
 .modal-content {
   text-align: center;
 }
