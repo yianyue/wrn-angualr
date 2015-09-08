@@ -1,0 +1,185 @@
+@import "../../bower_components/bootstrap/less/bootstrap.less";
+
+@import url(http://fonts.googleapis.com/css?family=Monofett|Josefin+Sans);
+/*Bevan|Rock+Salt*/
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('./fonts/glyphicons-halflings-regular.eot');
+  src: url('./fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('./fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('./fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+/*Typography
+## Font, line-height, and color for body text, headings, and more.
+*/
+@font-family-sans-serif:  "Josefin Sans","Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Garamond, Georgia, "Times New Roman", Times, serif;
+@font-family-base:        @font-family-sans-serif;
+
+/** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+
+@font-size-base:          14px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+/* Colours
+@gray-base:              #000;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              lighten(@gray-base, 20%);   // #333
+@gray:                   lighten(@gray-base, 33.5%); // #555
+@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
+@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+@brand-success:         #5cb85c;
+@brand-info:            #5bc0de;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+*/
+
+
+/* robin's egg blue */
+@main-color: #00CCCC;
+@brand-primary: @main-color;
+/* irish green */
+@brand-success: #009E60;
+/* unmellow yellow */
+@brand-info: #FFFF66;
+/* hot pink */
+@brand-warning: #D11565;
+@brand-danger: @gray;
+
+@link-color: @gray;
+@link-hover-color: @main-color;
+
+@navbar-default-bg: @main-color;
+@navbar-default-link-color: @gray-lighter;
+@nav-link-hover-bg: transparent;
+
+/* padding for fixed nav bar*/
+body {
+  padding: 70px 190px;
+}
+
+/* styles for the ql-editor */
+.ql-editor {
+  /*padding: 0 3em;*/
+  font-size: @font-size-h3;
+  font-family: @font-family-serif;
+}
+
+/* hide nav bar */
+.fs-navbar {
+  opacity:0.0;
+  transition:2s;
+}
+
+.fs-navbar:hover{
+  opacity:1.0;
+}
+
+/* style the navbar brand */
+.navbar-brand {
+  font-family: Monofett; 
+  color: @gray-darker !important; 
+  font-size: 42px;
+  text-align: right;
+  line-height: 28px;
+  padding: 10px 35px;
+}
+
+/* entry list and stats table */
+.main.list-group {
+
+  .progress{
+    height: 7px; 
+    border-radius: 0px;
+    clear: both; 
+  }
+
+  .list-group-item{
+    border: none;
+    border-radius: 0px;
+  }
+
+}
+
+.list-group .list-group-item{
+  
+  overflow: auto;
+  clear:both; 
+
+  h3{
+    display: inline-block; 
+    span {
+      color: @brand-warning;
+    }   
+  }
+
+  /* Date and label */
+  h3:nth-child(1){
+    float: left;
+  }
+
+  /* Percentage and word count */
+  p, h3:nth-child(2){
+    float: right;
+  }
+
+  .preview {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: fade(@gray-darker, 80%);
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0.75em 6.5em ;
+    -webkit-transition: visibility opacity 0.2s;
+    font-size: @font-size-h2;
+    font-family: @font-family-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+
+}
+
+.list-group-item:hover .preview {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* for editing daily goal */
+.well {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* modal */
+/*@keyframes star-animation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.modal-body span {
+  color: @brand-success;
+  animation: star-animation 2s infinite  alternate backwards;
+}*/
+.modal-content {
+  text-align: center;
+}

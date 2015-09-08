@@ -1,0 +1,27 @@
+<div class="container col-md-4 col-md-offset-4">
+<form nonvalidate ng-submit="user.register()">
+  <p>
+    <label>Email</label>
+    <input type="email" ng-model="user.info.email" class='form-control'>
+  </p>
+  <p>
+    <label>Password</label>
+    <input type="password" ng-model="user.info.password" class='form-control'>
+  </p>
+   <p>
+    <label>Confirm Password</label>
+    <input type="password" ng-model="user.info.password_confirmation" class='form-control'>
+  </p>
+  <p>
+    <label>User Name</label>
+    <input type="text" ng-model="user.info.name" class='form-control'>
+  </p>
+  <p>
+    <label>Daily Writing Goal (words)</label>
+    <input type="text" ng-model="user.info.goal" class='form-control'>
+  </p>
+  <p>
+    <input type="submit" value="Register" class='btn btn-primary'>
+  </p>
+</form>
+</div>

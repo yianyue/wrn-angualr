@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="page-header">
+      <h1>Today <small>{{stats.dt.today.date}}</small></h1>
+    </div>
+      <div class="col-md-4 col-xs-4">
+        <ul class="list-group">
+          <li class="list-group-item"><h3><small>Progress</small></h3><h3>{{stats.dt.today.progress}}%</h3></li>
+          <li class="list-group-item"><h3><small>Words Written</small></h3><h3>{{stats.dt.today.data[0]}}</h3></li>
+          <li class="list-group-item"><h3><small>Words to Goal</small></h3><h3>{{stats.dt.today.data[1]}}</h3></li>
+        </ul>
+      </div>
+      <div class="col-md-6 col-xs-6">
+        <canvas id="doughnut" 
+          legend="true"
+          class="chart chart-doughnut" 
+          data="stats.dt.today.data"
+          labels="stats.dt.today.labels">
+        </canvas>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h1>Overview <small>of the last {{stats.dt.completion.totalDays}} days</small></h1>
+    </div>
+    <div class="col-md-4 col-xs-4">
+      <ul class="list-group">
+        <li class="list-group-item"><h3><small>Longest Streak</small></h3><h3>{{stats.dt.completion.streak}} Days</h3></li>
+        <li class="list-group-item"><h3><small>Total Written</small></h3><h3>{{stats.dt.words.totalWords}} Words</h3></li>
+        <li class="list-group-item"><h3><small>Daily Average</small></h3><h3>{{stats.dt.words.dailyAvg}} Words</h3></li>
+      </ul>
+    </div>
+     <div class="col-md-6 col-xs-6">
+        <canvas id="pie" 
+        legend="true"
+        class="chart chart-pie" 
+        data="stats.dt.completion.data"
+        labels="stats.dt.completion.labels">
+        </canvas>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h1>Word Count <small>over time</small></h1>
+    </div>
+    <div class="col-md-12">
+      <canvas id="line" class="chart chart-line" data="stats.dt.words.data" labels="stats.dt.words.labels">
+      </canvas>
+    </div>
+  </div>
+
+</div>

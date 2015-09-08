@@ -1,0 +1,78 @@
+<div class="container">
+
+<!-- Update User Goal -->
+<div ng-controller="UserCtrl as user">
+  <div class="page-header"><h1>{{ $root.currentUser.name }}'s Entries</h1>
+  
+  <h3>Daily goal: {{ $root.currentUser.goal }} words
+    <a href=""><span 
+    class="glyphicon glyphicon-edit" aria-hidden="true" 
+    aria-pressed="false" autocomplete="off" aria-label="Edit"
+    data-toggle="collapse" data-target="#goalInput" aria-expanded="false" aria-controls="goalInput"></span></a>
+  </h3>
+
+  <div class="collapse" id="goalInput">
+    <div class="well well-sm">
+      <form name="goal" class="form-inline" ng-model-options="{ updateOn: 'blur' }">
+        <label for="goal">Edit Daily Goal</label> 
+        <input name="goal"
+              class="form-control" 
+              ng-model="$root.currentUser.goal"
+              ng-change="user.updateGoal()">
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Entry List -->
+<div class="main list-group" ng-repeat="day in main.days | orderBy:'date':true">
+
+  <div ng-show="day.entry">
+
+    <a class="list-group-item" ng-hide="day.entry.locked" ng-href="#/entries/{{ day.entry.id }}">
+      <h3>{{ day.date | date:"MMM d, y" }}</h3>
+      <h3>{{day.entry.progress}}%</h3>
+      <div class="progress">      
+        <div class="progress-bar 
+        ng-class: day.entry.word_count/day.entry.goal >= 1 ? 'progress-bar-success' : 'progress-bar-info'" 
+        role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" 
+        style="width: {{ day.entry.progress > 100 ? 100 : day.entry.progress }}%">
+        </div>
+      </div><!-- progress -->
+      <p><span>{{ day.entry.word_count }} / {{ day.entry.goal }}</span> words</p>
+      <div class="preview">{{day.entry.preview}}</div>
+    </a>
+
+    <div class="list-group-item" ng-show="day.entry.locked">
+      <h3><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> {{ day.date | date:"MMM d, y" }}</h3>
+      <h3>{{day.entry.progress}}%</h3>
+      <div class="progress">
+        <div class="progress-bar 
+        ng-class: day.entry.word_count/day.entry.goal >= 1 ? 'progress-bar-success' : 'progress-bar-info'" 
+        role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" 
+        style="width: {{ day.entry.progress > 100 ? 100 : day.entry.word_count/day.entry.goal*100 }}%"></div>
+      </div><!-- progress -->
+      <p><span>{{ day.entry.word_count }} / {{ day.entry.goal }}</span> words</p>
+      <div class="preview">{{day.entry.preview}}</div>
+    </div>
+    
+  </div><!-- ng-show -->
+
+  <div ng-hide="day.entry">
+    <div class="list-group-item">
+      <h3>{{ day.date | date:"MMM d, y" }}</h3>
+      <h3>0%</h3>
+      <div class="progress">      
+        <div class="progress-bar"  
+        role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" 
+        style="width: 0%">
+        </div>
+      </div><!-- progress -->
+      <p>You skipped :(</p>
+    </div>
+  </div><!-- ng-hide -->
+
+
+</div>
+  
+</div>
