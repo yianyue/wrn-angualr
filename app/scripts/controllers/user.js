@@ -11,6 +11,9 @@
 app.controller('UserCtrl', ['UserService', 'SessionService', 'Data', 'Stats', '$location', '$rootScope', function (UserService, SessionService, Data, Stats, $location, $rootScope) {
   
   var ctrl = this;
+
+  // sample account
+  ctrl.info ={email: "kafka@gmail.com", password: "password"};
   
   $rootScope.currentUser = Data.loadUser();
 
