@@ -6774,41 +6774,13 @@ button.close {
 /*Typography
 ## Font, line-height, and color for body text, headings, and more.
 */
-/** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
-
-@font-size-base:          14px;
-@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
-@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
-
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
-@font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
-
-/* Colours
-@gray-base:              #000;
-@gray-darker:            lighten(@gray-base, 13.5%); // #222
-@gray-dark:              lighten(@gray-base, 20%);   // #333
-@gray:                   lighten(@gray-base, 33.5%); // #555
-@gray-light:             lighten(@gray-base, 46.7%); // #777
-@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
-
-@brand-primary:         darken(#428bca, 6.5%); // #337ab7
-@brand-success:         #5cb85c;
-@brand-info:            #5bc0de;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
-*/
 /* robin's egg blue */
 /* irish green */
 /* unmellow yellow */
 /* hot pink */
 /* padding for fixed nav bar*/
 body {
-  padding: 70px 190px;
+  padding: 110px 0 0 0;
 }
 /* styles for the ql-editor */
 .ql-editor {
@@ -6828,10 +6800,15 @@ body {
 .navbar-brand {
   font-family: Monofett;
   color: #222222 !important;
-  font-size: 42px;
   text-align: right;
+  font-size: 42px;
   line-height: 28px;
-  padding: 10px 35px;
+  padding: 5px 15px;
+}
+@media screen and (min-width: 768px) {
+  .navbar-brand {
+    padding: 10px 35px;
+  }
 }
 /* entry list and stats table */
 .main.list-group .progress {
@@ -6889,19 +6866,7 @@ body {
   border: none;
   box-shadow: none;
 }
-/* modal */
-/*@keyframes star-animation {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-.modal-body span {
-  color: @brand-success;
-  animation: star-animation 2s infinite  alternate backwards;
-}*/
+/* success message */
 .modal-content {
   text-align: center;
 }
