@@ -16,7 +16,6 @@
 @font-family-serif:       Garamond, Georgia, "Times New Roman", Times, serif;
 @font-family-base:        @font-family-sans-serif;
 
-
 /* robin's egg blue */
 @main-color: #00CCCC;
 @brand-primary: @main-color;
@@ -42,7 +41,6 @@ body {
 
 /* styles for the ql-editor */
 .ql-editor {
-  /*padding: 0 3em;*/
   font-size: @font-size-h3;
   font-family: @font-family-serif;
 }
@@ -64,11 +62,10 @@ body {
   text-align: right; 
   font-size: 42px;
   line-height: 28px;
-  padding: 5px 15px;
+  padding: 5px 15px;  
   @media screen and (min-width: @screen-sm-min) {
     padding: 10px 35px;
   } 
-  
 }
 
 /* entry list and stats table */
@@ -119,12 +116,16 @@ body {
     color: white;
     visibility: hidden;
     opacity: 0;
-    padding: 0.75em 6.5em ;
+    padding: 0.75em;
     -webkit-transition: visibility opacity 0.2s;
-    font-size: @font-size-h2;
+    font-size: @font-size-h4;
     font-family: @font-family-serif;
     text-align: center;
     overflow: hidden;
+    @media screen and (min-width: @screen-sm-min) {
+      font-size: @font-size-h2;
+      padding: 0.75em 6.5em ;
+    } 
   }
 
 }

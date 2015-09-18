@@ -6784,7 +6784,6 @@ body {
 }
 /* styles for the ql-editor */
 .ql-editor {
-  /*padding: 0 3em;*/
   font-size: 24px;
   font-family: Garamond, Georgia, "Times New Roman", Times, serif;
 }
@@ -6849,12 +6848,18 @@ body {
   color: white;
   visibility: hidden;
   opacity: 0;
-  padding: 0.75em 6.5em ;
+  padding: 0.75em;
   -webkit-transition: visibility opacity 0.2s;
-  font-size: 30px;
+  font-size: 18px;
   font-family: Garamond, Georgia, "Times New Roman", Times, serif;
   text-align: center;
   overflow: hidden;
+}
+@media screen and (min-width: 768px) {
+  .list-group .list-group-item .preview {
+    font-size: 30px;
+    padding: 0.75em 6.5em ;
+  }
 }
 .list-group-item:hover .preview {
   visibility: visible;
