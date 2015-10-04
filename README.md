@@ -37,7 +37,7 @@ The linux os sets a soft limit on the number of files the watcher can watch, and
 
 ####Problem:
 
-Changes made to the file appear on localhost, but pushing to heroku fails to make change
+Changes made to files appear on localhost, but not on Heroku.
 
 ####Fix:
 ```
@@ -49,10 +49,11 @@ git push heroku master
 
 ####Explanation:
 
-Heroku runs the web.js file, which serves the files from the dist folder, which does not automatically update to reflect the changes in the app folder. `grunt build` rebuild the dist files from the app files.
+Heroku runs the web.js file, which serves the files from the dist folder. However, the dist folder does not automatically update to reflect the changes in the app folder. `grunt build` rebuild the dist files from the app files.
 
 ####To-do:
 
 Figure out how to auto-run grunt build when deploying.
+
 https://devcenter.heroku.com/articles/node-with-grunt#specify-your-grunt-task-in-a-postinstall-script
 
