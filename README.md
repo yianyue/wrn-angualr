@@ -47,6 +47,8 @@ git commit -m "blah"
 git push heroku master
 ```
 
+Also: `heroku local` to run Heroku app locally.
+
 ####Explanation:
 
 Heroku runs the web.js file, which serves the files from the dist folder. However, the dist folder does not automatically update to reflect the changes in the app folder. `grunt build` rebuild the dist files from the app files.
