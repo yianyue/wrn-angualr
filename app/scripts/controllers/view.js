@@ -1,3 +1,5 @@
+'use strict';
+
 // ViewCtrl for the navigation bar and routing
 app.controller("ViewCtrl", ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
   $scope.$on("$routeChangeStart", function(event, next, current) {
