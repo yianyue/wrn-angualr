@@ -15,28 +15,31 @@ app.controller('EntryCtrl', ['$routeParams', '$location','$scope', 'Data', 'Full
   function($routeParams, $location, $scope, Data, Fullscreen) {
 
     var ctrl = this;
+    ctrl.editor = {};
+    ctrl.entry = {};
 
-    ctrl.countWords = function() {
-      // replace all html tags with space
-      var words = ctrl.currentEntry.content.replace(/<.*?>/g, ' ');
-      // match all non-whitespace
-      return words.match(/\S+/g) ? words.match(/\S+/g).length : 0;
-    };
+    // ACCESSIBLE FUNCTIONS
 
-    ctrl.updateEntry = function(){
+    ctrl.updateEntry = updateEntry;
+    ctrl.toggleFullscreen = toggleFullscreen;
+
+
+    // FUNCTION DEFINITIONS
+
+    function updateEntry(){
       // TODO: handle error
-      ctrl.currentEntry.word_count = ctrl.countWords();
-      ctrl.currentEntry.progress = Math.round(ctrl.currentEntry.word_count/ctrl.currentEntry.goal* 100);
-      if (ctrl.currentEntry.progress >= 100 && ctrl.displayModal ){
+      ctrl.entry.word_count = _countWords();
+      ctrl.entry.progress = Math.round(ctrl.entry.word_count/ctrl.entry.goal* 100);
+      if (ctrl.entry.progress >= 100 && ctrl.displayModal ){
         $('#successModal').modal('show');
         ctrl.displayModal = false;
-      } else if (ctrl.currentEntry.progress < 100){
+      } else if (ctrl.entry.progress < 100){
         ctrl.displayModal = true;
       };
-      Data.saveEntry(ctrl.currentEntry);
+      Data.saveEntry(ctrl.entry);
     };
 
-    ctrl.toggleFullscreen = function(){
+    function toggleFullscreen(){
       if (Fullscreen.isEnabled()){
         Fullscreen.cancel();
       } else {
@@ -45,26 +48,37 @@ app.controller('EntryCtrl', ['$routeParams', '$location','$scope', 'Data', 'Full
       ctrl.editor.quill.setSelection(ctrl.editor.length, ctrl.editor.length);
     };
 
+    // "PRIVATE" FUNCTION
+    function _countWords() {
+      // replace all html tags with space
+      var words = ctrl.entry.content.replace(/<.*?>/g, ' ');
+      // match all non-whitespace
+      console.log('editor length in _countWords', ctrl.editor.length);
+      return words.match(/\S+/g) ? words.match(/\S+/g).length : 0;
+    };
+
+    Data.getEntry({id: $routeParams.id},
+      function success(rsp){
+        ctrl.entry = rsp;
+        ctrl.entry.progress = Math.round(ctrl.entry.word_count/ctrl.entry.goal* 100);
+        ctrl.displayModal = ctrl.entry.progress < 100;
+        var today = new Date();
+        var entryDate = new Date(ctrl.entry.created_at);
+    // TODO: check if user can game this by changing their computer's date
+        if (entryDate.setHours(0,0,0,0) == today.setHours(0,0,0,0)){
+          ctrl.editor.enable();
+          // focus the editor and go to the end of the text
+          ctrl.editor.quill.setSelection(ctrl.editor.length, ctrl.editor.length);
+          console.log("editor length", ctrl.editor.length);
+        };
+      },
+      function error(rsp){
+        console.log('Error' + JSON.stringify(rsp) );
+      }
+    );
+            
     $scope.$on('editorCreated', function (event, args) {
       ctrl.editor = args.editor;
-      // TODO: check if user can game this by changing their computer's date
-      var today = new Date();
-      Data.getEntry({id: $routeParams.id},
-        function success(rsp){
-          ctrl.currentEntry = rsp;
-          ctrl.currentEntry.progress = Math.round(ctrl.currentEntry.word_count/ctrl.currentEntry.goal* 100);
-          ctrl.displayModal = ctrl.currentEntry.progress < 100;
-          
-          var entryDate = new Date(ctrl.currentEntry.created_at);
-          if (entryDate.setHours(0,0,0,0) == today.setHours(0,0,0,0)){
-            ctrl.editor.enable();
-            // focus the editor and go to the end of the text
-            ctrl.editor.quill.setSelection(ctrl.editor.length, ctrl.editor.length);
-          };
-        },
-        function error(rsp){
-          console.log('Error' + JSON.stringify(rsp) );
-        }
-      );      
+
     });
 }]);

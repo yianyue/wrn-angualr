@@ -25,11 +25,11 @@
 </div>
 
 <!-- Entry List -->
-<div class="main list-group" ng-repeat="day in main.days | orderBy:'date':true">
+<div class="main list-group" ng-repeat="day in ctrl.days | orderBy:'date':true">
 
-  <div ng-show="day.entry">
+  <div ng-if="day.entry">
 
-    <a class="list-group-item" ng-hide="day.entry.locked" ng-href="#/entries/{{ day.entry.id }}">
+    <a class="list-group-item" ng-if="!day.entry.locked" ng-href="#/entries/{{ day.entry.id }}">
       <h3>{{ day.date | date:"MMM d, y" }}</h3>
       <h3>{{day.entry.progress}}%</h3>
       <div class="progress">      
@@ -43,7 +43,7 @@
       <div class="preview">{{day.entry.preview}}</div>
     </a>
 
-    <div class="list-group-item" ng-show="day.entry.locked">
+    <div class="list-group-item" ng-if="day.entry.locked">
       <h3><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> {{ day.date | date:"MMM d, y" }}</h3>
       <h3>{{day.entry.progress}}%</h3>
       <div class="progress">
@@ -58,7 +58,7 @@
     
   </div><!-- ng-show -->
 
-  <div ng-hide="day.entry">
+  <div ng-if="!day.entry">
     <div class="list-group-item">
       <h3>{{ day.date | date:"MMM d, y" }}</h3>
       <h3>0%</h3>

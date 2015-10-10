@@ -13,11 +13,11 @@ app.factory('EntryService', ['$resource', function($resource){
 app.factory('UserService', ['$resource', function($resource){
   return {
     users: $resource(APIURL + '/api/users', {}, {
-    save: {method: 'POST', cache: false, isArray: false},
-  }),
+      save: {method: 'POST', cache: false, isArray: false},
+    }),
     user: $resource(APIURL + '/api/user', {}, {
-    update: {method: 'PUT', cache: false, isArray: false},
-  }) 
+      update: {method: 'PUT', cache: false, isArray: false},
+    }) 
   }
 }]);
 
@@ -28,11 +28,14 @@ return $resource(APIURL + '/api/session', {}, {
   });
 }]);
 
-app.factory('Data', ['EntryService', 'UserService', 'localStorageService', 'Stats', function (EntryService, UserService, localStorageService, Stats) {
+app.factory('Data', ['EntryService', 'UserService', 'localStorageService', 'Stats', 
+function (EntryService, UserService, localStorageService, Stats) {
 
   var days = localStorageService.get('days');
 
-  function getEntries(complete) {
+  var dataFactory = {};
+
+  function _getEntries(complete) {
     EntryService.get({},
       function success(rsp){
         days = Stats.matchEntriesToDates(rsp);
@@ -45,7 +48,7 @@ app.factory('Data', ['EntryService', 'UserService', 'localStorageService', 'Stat
     );
   };
 
-  function lsUpdateEntry(entry){
+  function _lsUpdateEntry(entry){
     var i = 0;
       do {
         if (days[i].entry && days[i].entry.id == entry.id){
@@ -56,48 +59,61 @@ app.factory('Data', ['EntryService', 'UserService', 'localStorageService', 'Stat
       } while (i < days.length);
     localStorageService.set('days', days);
   }
+
+
+  dataFactory.loadEntries = loadEntries;
+  dataFactory.loadUser = loadUser;
+  dataFactory.clear = clear;
+  dataFactory.setUser = setUser;
+  dataFactory.saveEntry = saveEntry;
+  dataFactory.updateUser = updateUser;
+  dataFactory.getEntry = EntryService.getEntry;
   
-  return {
-    loadEntries: function(complete){
-      if(days) {
-        complete(days);
-      } else {
-        getEntries(complete);
-      }
-    },
-    loadUser: function(){
-      return localStorageService.get('user');;
-    },
-    clear: function(){
-      localStorageService.clearAll();
-      days = null;
-    },
-    setUser: function(user){
-      localStorageService.set('user', user);
-    },
-    getEntry: EntryService.getEntry,
-    saveEntry: function(entry){
-      lsUpdateEntry(entry);
-      EntryService.update({id: entry.id},{entry: entry},
-        function success(rsp){
-          rsp.forEach(function(el, i, arr){
-            lsUpdateEntry(el);
-          });
-        },
-        function error(rsp){
-          console.log('Error' + JSON.stringify(rsp) );
-      });
-    },
-    updateUser: function(user){
-      localStorageService.set('user', user);
-      UserService.user.update({user: user},
-        function success(rsp){
-          console.log('user updated' + JSON.stringify(rsp));
-        },
-        function error(rsp){
-          console.log('Error' + JSON.stringify(rsp) );
-        });
+  return dataFactory;
+  
+  function loadEntries (complete){
+    if(days) {
+      complete(days);
+    } else {
+      _getEntries(complete);
     }
   };
+
+  function loadUser(){
+    return localStorageService.get('user');;
+  };
+
+  function clear(){
+    localStorageService.clearAll();
+    days = null;
+  };
+
+  function setUser(user){
+    localStorageService.set('user', user);
+  };
+  
+  function saveEntry(entry){
+    _lsUpdateEntry(entry);
+    EntryService.update({id: entry.id},{entry: entry},
+      function success(rsp){
+        rsp.forEach(function(el, i, arr){
+          _lsUpdateEntry(el);
+        });
+      },
+      function error(rsp){
+        console.log('Error' + JSON.stringify(rsp) );
+    });
+  };
+
+  function updateUser(user){
+    localStorageService.set('user', user);
+    UserService.user.update({user: user},
+      function success(rsp){
+        console.log('user updated' + JSON.stringify(rsp));
+      },
+      function error(rsp){
+        console.log('Error' + JSON.stringify(rsp) );
+      });
+  }
 
 }]);

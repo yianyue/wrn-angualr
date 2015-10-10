@@ -29,24 +29,7 @@ app.config(['localStorageServiceProvider', function(localStorageServiceProvider)
 }]);
 
 // Optional angular chart config
-app.config(['ChartJsProvider', function (ChartJsProvider) {
-    // Configure all charts
-    ChartJsProvider.setOptions({
-      // responsive: false,
-      bezierCurve : false,
-      scaleBeginAtZero: true
-    });
-    // Configure all donut charts
-    ChartJsProvider.setOptions('Doughnut',{
-      percentageInnerCutout : 75,
-    });
-    // Irish green, light gray, and a hot pink
-    Chart.defaults.global.colours = ['#009E60', '#DCDCDC', '#D11565'];
-    Chart.defaults.global.scaleFontFamily =["Josefin Sans","Helvetica Neue", 'Helvetica', 'Arial','sans-serif'];
-    Chart.defaults.global.tooltipFontFamily=["Josefin Sans","Helvetica Neue", 'Helvetica', 'Arial','sans-serif'];
-    Chart.defaults.global.scaleFontSize= 16;
-    Chart.defaults.global.tooltipFontSize = 18;
-  }])
+
 
 // Interceptor to send user token and email with every request
 app.config(['$httpProvider', function($httpProvider) {
@@ -80,13 +63,13 @@ app.config(function ($routeProvider) {
     })
     .when('/entries', {
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      controllerAs: 'main'
+      controller: 'EntriesCtrl',
+      controllerAs: 'ctrl'
     })
     .when('/entries/:id', {
       templateUrl: 'views/entry.html',
       controller: 'EntryCtrl',
-      controllerAs: 'entry',
+      controllerAs: 'ctrl',
       navigationClass: 'fs-navbar'
     })
     .when('/stats', {
